@@ -1,23 +1,14 @@
 class Postgresql < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  revision 1
-
-  stable do
-    url "https://ftp.postgresql.org/pub/source/v9.4.5/postgresql-9.4.5.tar.bz2"
-    sha256 "b87c50c66b6ea42a9712b5f6284794fabad0616e6ae420cf0f10523be6d94a39"
-  end
-
-  devel do
-    url "https://ftp.postgresql.org/pub/source/v9.5beta1/postgresql-9.5beta1.tar.bz2"
-    sha256 "b53199e2667982de2039ad7e30467f67c5d7af678e69d6211de8ba1cac75c9f0"
-    version "9.5beta1"
-  end
+  url "https://ftp.postgresql.org/pub/source/v9.5.0/postgresql-9.5.0.tar.bz2"
+  sha256 "f1c0d3a1a8aa8c92738cab0153fbfffcc4d4158b3fee84f7aa6bfea8283978bc"
 
   bottle do
-    sha256 "4a843d7918d3f6a2526b93d1bf4222e64bfa127ac81648db9a0df21bacd36df8" => :el_capitan
-    sha256 "9a796f9f9d129af45ca1d2d8e54a17c7116164d226c0282a14005afa2b2a09be" => :yosemite
-    sha256 "0b764882f8dbb339b3023736091a94abbad797c2a95118953031ba08567c177b" => :mavericks
+    revision 1
+    sha256 "c49cfd5c49476158519da525c09b424fd11dd22b7216a45cda7e7c0baf29a7c5" => :el_capitan
+    sha256 "f21552b6b1b6e30648d8ae791ef08668bf78b5d8d8013761b4beb8239277ae33" => :yosemite
+    sha256 "6c2feaa678c1e3f53b651fb42f54d013a78d0ee07c7daf4e76c4daecb6a8f6ca" => :mavericks
   end
 
   option "32-bit"
@@ -45,8 +36,8 @@ class Postgresql < Formula
   def install
     ENV.libxml2 if MacOS.version >= :snow_leopard
 
-    ENV.prepend "LDFLAGS", "-L#{Formula["openssl"].opt_lib}"
-    ENV.prepend "CPPLAGS", "-I#{Formula["openssl"].opt_include}"
+    ENV.prepend "LDFLAGS", "-L#{Formula["openssl"].opt_lib} -L#{Formula["readline"].opt_lib}"
+    ENV.prepend "CPPFLAGS", "-I#{Formula["openssl"].opt_include} -I#{Formula["readline"].opt_include}"
 
     args = %W[
       --disable-debug
@@ -103,8 +94,14 @@ class Postgresql < Formula
     you may need to remove the previous version first. See:
       https://github.com/Homebrew/homebrew/issues/2510
 
-    To migrate existing data from a previous major version (pre-9.4) of PostgreSQL, see:
-      https://www.postgresql.org/docs/9.4/static/upgrading.html
+    To migrate existing data from a previous major version (pre-9.0) of PostgreSQL, see:
+      http://www.postgresql.org/docs/9.5/static/upgrading.html
+
+    To migrate existing data from a previous minor version (9.0-9.4) of PosgresSQL, see:
+      http://www.postgresql.org/docs/9.5/static/pgupgrade.html
+
+      You will need your previous PostgreSQL installation from brew to perform `pg_upgrade`.
+      Do not run `brew cleanup postgresql` until you have performed the migration.
     EOS
   end
 

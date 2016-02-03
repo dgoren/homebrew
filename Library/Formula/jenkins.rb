@@ -1,8 +1,8 @@
 class Jenkins < Formula
   desc "Extendable open source continuous integration server"
   homepage "https://jenkins-ci.org"
-  url "http://mirrors.jenkins-ci.org/war/1.636/jenkins.war"
-  sha256 "7374cfecf603a9403affe2644c6fe9bc6b157fa67e38dfcb9bf6e9776df9dcc8"
+  url "http://mirrors.jenkins-ci.org/war/1.646/jenkins.war"
+  sha256 "2b892d363e1ce88e4d3a37e7d5c17c0be5bce902b3b98e6e0ebfe0d2d509f2d4"
 
   head do
     url "https://github.com/jenkinsci/jenkins.git"
@@ -11,10 +11,11 @@ class Jenkins < Formula
 
   bottle :unneeded
 
-  depends_on :java => "1.6+"
+  depends_on :java => "1.7+"
 
   def install
     if build.head?
+      ENV.java_cache
       system "mvn", "clean", "install", "-pl", "war", "-am", "-DskipTests"
     else
       system "jar", "xvf", "jenkins.war"

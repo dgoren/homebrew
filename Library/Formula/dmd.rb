@@ -1,31 +1,31 @@
 class Dmd < Formula
   desc "D programming language compiler for OS X"
-  homepage "http://dlang.org"
+  homepage "https://dlang.org/"
 
   stable do
-    url "https://github.com/D-Programming-Language/dmd/archive/v2.069.0.tar.gz"
-    sha256 "a75621e2584bbde8b10eefd58fdafa74adf4df8d35abdc9bb68dd00fbc1a4787"
+    url "https://github.com/D-Programming-Language/dmd/archive/v2.070.0.tar.gz"
+    sha256 "22f47168af3f4106668f816c0e7a99b8db364fbe5324a5e763a209b9e74c0ee8"
 
     resource "druntime" do
-      url "https://github.com/D-Programming-Language/druntime/archive/v2.069.0.tar.gz"
-      sha256 "84b359e7160a797cf4f21dda0b39e18256d12f68e16ad4348214f0d8785dffc8"
+      url "https://github.com/D-Programming-Language/druntime/archive/v2.070.0.tar.gz"
+      sha256 "7ef1290d8482af5eb9d9744ca133488a3320db2a657bc5a9fdff846f56ba53f3"
     end
 
     resource "phobos" do
-      url "https://github.com/D-Programming-Language/phobos/archive/v2.069.0.tar.gz"
-      sha256 "81b391dc943e8069217cda765bf015c29a2dcf70267c6e7bf4f845d67229b11a"
+      url "https://github.com/D-Programming-Language/phobos/archive/v2.070.0.tar.gz"
+      sha256 "b5cb9559b01e713ac1dd282648710d4a78f8228da778b4508a7b302877b82b6c"
     end
 
     resource "tools" do
-      url "https://github.com/D-Programming-Language/tools/archive/v2.069.0.tar.gz"
-      sha256 "6219306fcb51b5f69fabd241d1e78cb67f953589c6f0d10a627d2025e455ddff"
+      url "https://github.com/D-Programming-Language/tools/archive/v2.070.0.tar.gz"
+      sha256 "a2864c8b440fec843d80f70e13ab8e7873f370d5bcca56fe272d94e3ba9afb77"
     end
   end
 
   bottle do
-    sha256 "578203e347dffa72549d9edd2651f15bfa64de8d555a59f89cc83fb1d6bc51b6" => :el_capitan
-    sha256 "ad2908bb8822c1b3145009b158a95b825705f60da3a828c8bb221ca8a25538a9" => :yosemite
-    sha256 "9dbc01cf2450007bc85d965c43f795fd0504a8d195c13fa9789d567e4cd84cf3" => :mavericks
+    sha256 "793b9a504c6df3e7f1a1dbeec00fbd20d660a07faee731a303b3c71a07a1ff0f" => :el_capitan
+    sha256 "b3809e8463025fec4174e8e694a2ec8ae5fe3763bae2036cab425a35b0332496" => :yosemite
+    sha256 "a64e72d53b6a0452769cce6010fa185a2283030804bfb20ffbce13f55b8be415" => :mavericks
   end
 
   head do

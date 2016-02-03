@@ -1,8 +1,8 @@
 class Gitbucket < Formula
   desc "GitHub clone"
   homepage "https://github.com/gitbucket/gitbucket"
-  url "https://github.com/gitbucket/gitbucket/releases/download/3.8/gitbucket.war"
-  sha256 "abe2e65e9578f1f3098a27a2d8a7b9dc52ab7dbb98583a7ac5fc054e70998e2a"
+  url "https://github.com/gitbucket/gitbucket/releases/download/3.11/gitbucket.war"
+  sha256 "229e814bb3a316cb74476487f9a3968e21e23c529b95b4c9ae4af9ffe15df750"
 
   head do
     url "https://github.com/gitbucket/gitbucket.git"
@@ -10,6 +10,8 @@ class Gitbucket < Formula
   end
 
   bottle :unneeded
+
+  depends_on :java => "1.8+"
 
   def install
     if build.head?

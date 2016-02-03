@@ -1,14 +1,14 @@
 class Rethinkdb < Formula
   desc "The open-source database for the realtime web"
   homepage "https://www.rethinkdb.com/"
-  url "https://download.rethinkdb.com/dist/rethinkdb-2.1.5-2.tgz"
-  sha256 "7953b486aef0fec076c3adf198fb24c969e344f2247647743f9f1b7c6cb46e23"
+  url "https://download.rethinkdb.com/dist/rethinkdb-2.2.4.tgz"
+  sha256 "3562816790b408cd1b8e261363b9c2a588f6be776e2e5c0baa3be7acce3b407f"
 
   bottle do
     cellar :any
-    sha256 "418f68002207c9d078f05a7f86ba7811c79792f7276904d1aed783028a1fcc76" => :el_capitan
-    sha256 "6c9d67a9ba66981262ef420513c8929d4ec4df753d09fe0739b46f36f01dad9a" => :yosemite
-    sha256 "176be70b3d558046f1dbdef7bb7f5a50535e5e3989888ef7c01c62ab6835eae0" => :mavericks
+    sha256 "9a44426ded399f7493f72d40cffb6105c8a25c862b0dcc065d6297f1c48651b7" => :el_capitan
+    sha256 "e7eb3f772fa730e7d3db490b6bd3e0d58bb0fa27c655fa2af5b84cbe9c93d54c" => :yosemite
+    sha256 "7dae0a78e19b834821b8cf18240449048d3cc4f7d95899e982f25251a6e1c1fa" => :mavericks
   end
 
   depends_on :macos => :lion
@@ -32,6 +32,10 @@ class Rethinkdb < Formula
     system "make", "install-osx"
 
     (var/"log/rethinkdb").mkpath
+
+    inreplace "packaging/assets/config/default.conf.sample",
+              /^# directory=.*/, "directory=#{var}/rethinkdb"
+    etc.install "packaging/assets/config/default.conf.sample" => "rethinkdb.conf"
   end
 
   def plist; <<-EOS.undent
@@ -44,8 +48,8 @@ class Rethinkdb < Formula
       <key>ProgramArguments</key>
       <array>
           <string>#{opt_bin}/rethinkdb</string>
-          <string>-d</string>
-          <string>#{var}/rethinkdb</string>
+          <string>--config-file</string>
+          <string>#{etc}/rethinkdb.conf</string>
       </array>
       <key>WorkingDirectory</key>
       <string>#{HOMEBREW_PREFIX}</string>

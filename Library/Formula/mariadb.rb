@@ -1,18 +1,14 @@
 class Mariadb < Formula
   desc "Drop-in replacement for MySQL"
   homepage "https://mariadb.org/"
-  url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.1.8/source/mariadb-10.1.8.tar.gz"
-  sha256 "7cbf6a4649aa6dc9cd1dc24424ade7b994de78582ce4d47ca0f4cd1c4c003bfa"
+  url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.1.11/source/mariadb-10.1.11.tar.gz"
+  sha256 "cd32927370343b4f14bcc6073bca163623c27843ae7bc59c8c6a9ebeda0325ce"
 
   bottle do
-    sha256 "a369229d2063de79b1e1f55a69b4777b28160f66ddc276c8e94641e88a389780" => :el_capitan
-    sha256 "6a89f3dc372591100980b9999dd9b405f97c7da5b0a5c36a371a03cbd73d91d7" => :yosemite
-    sha256 "0dbf52e1cd9ff451957f102964fd52723127b01ebca656463f6e6d2fe6073647" => :mavericks
+    sha256 "4e1cce301d858389bbd772f6fa4673290dc5a747c82db47f6f24f80b98b76b84" => :el_capitan
+    sha256 "1caaca8c441b4288013e165ddccac0ffd949726199fd32383bd9dc55da6af31f" => :yosemite
+    sha256 "7701f36c03cee889aa3dbd0573ae8c04a9270631d87ff4bd7a9a134b89e6f9c8" => :mavericks
   end
-
-  # fix compilation failure with clang in mroonga storage engine
-  # https://mariadb.atlassian.net/projects/MDEV/issues/MDEV-8551
-  patch :DATA
 
   option :universal
   option "with-tests", "Keep test when installing"
@@ -34,6 +30,8 @@ class Mariadb < Formula
   conflicts_with "mysql-connector-c",
     :because => "both install MySQL client libraries"
   conflicts_with "mytop", :because => "both install `mytop` binaries"
+  conflicts_with "mariadb-connector-c",
+    :because => "both install plugins"
 
   def install
     # Don't hard-code the libtool path. See:
@@ -143,6 +141,8 @@ class Mariadb < Formula
         s.gsub!("$(dirname $0)/wsrep_sst_common", "#{libexec}/wsrep_sst_common")
       end
     end
+    # remove non-executable from bin
+    rm bin+"maria_add_gis_sp.sql"
   end
 
   def post_install
@@ -200,19 +200,3 @@ class Mariadb < Formula
     end
   end
 end
-__END__
-diff --git a/storage/mroonga/vendor/groonga/CMakeLists.txt b/storage/mroonga/vendor/groonga/CMakeLists.txt
-index ebe7f6b..609f77d 100644
---- a/storage/mroonga/vendor/groonga/CMakeLists.txt
-+++ b/storage/mroonga/vendor/groonga/CMakeLists.txt
-@@ -192,6 +192,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
-   check_build_flag("-Wno-clobbered")
- endif()
-
-+if(CMAKE_COMPILER_IS_CLANGCXX)
-+  MY_CHECK_AND_SET_COMPILER_FLAG("-fexceptions")
-+endif()
-+
- if(NOT DEFINED CMAKE_C_COMPILE_OPTIONS_PIC)
-   # For old CMake
-   if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGCXX)

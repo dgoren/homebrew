@@ -1,8 +1,8 @@
 class Embulk < Formula
   desc "Data transfer between various databases, file formats and services"
   homepage "http://www.embulk.org/"
-  url "https://bintray.com/artifact/download/embulk/maven/embulk-0.7.7.jar"
-  sha256 "959bc8a3a97cbfae67ecdfe61f34e14e8e66df502094c61090524373fc9643e9"
+  url "https://bintray.com/artifact/download/embulk/maven/embulk-0.8.1.jar"
+  sha256 "3cb907015d952e9cf2d61d9b55faae99f7ccae3c2e9d4fbf1b393099333c910f"
 
   bottle :unneeded
 
@@ -12,7 +12,8 @@ class Embulk < Formula
 
   def install
     (libexec/"bin").install "embulk-#{version}.jar" => "embulk"
-    bin.write_jar_script libexec/"bin/embulk", "embulk"
+    chmod 0755, libexec/"bin/embulk"
+    bin.write_exec_script libexec/"bin/embulk"
   end
 
   test do

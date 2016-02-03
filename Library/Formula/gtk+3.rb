@@ -1,14 +1,13 @@
 class Gtkx3 < Formula
   desc "Toolkit for creating graphical user interfaces"
   homepage "http://gtk.org/"
-  url "https://download.gnome.org/sources/gtk+/3.18/gtk+-3.18.2.tar.xz"
-  sha256 "5dbec561c4a00070073bf9cf4cfdd61fab4a14c8ff5b15d700bd378f8185e152"
-  revision 1
+  url "https://download.gnome.org/sources/gtk+/3.18/gtk+-3.18.7.tar.xz"
+  sha256 "a76e1cb0ac45ce5c2734f6778f2731a5c6a23d1ff6bd4db357774f014ee68820"
 
   bottle do
-    sha256 "370eb08409ab77004563720b9b0e335f93668c0808e1657a580a28ca834676a1" => :el_capitan
-    sha256 "0847dc9db2a2ef3fb9ba31906b9d460670cbfc7912625c5581854a3704c76880" => :yosemite
-    sha256 "16ae87b38fb0fce3cbde4082fda9ac2ec2efc29eee82c805f7c9265b0faa23a9" => :mavericks
+    sha256 "d938661ed85cca23feba465da1f8bedb16fdc0962bee2b90c9f81216d8be914f" => :el_capitan
+    sha256 "271f7accb9f53f2e2fe8e25fadcf7cbf7e5b82be5018c30abee776467af56ee8" => :yosemite
+    sha256 "791a36915ed00ff99bd7e72392427a15eaf6fc596a174fb4323adf2b6b48f2e5" => :mavericks
   end
 
   option :universal
@@ -32,13 +31,6 @@ class Gtkx3 < Formula
       url "https://bugzilla.gnome.org/attachment.cgi?id=313599&format=raw"
       sha256 "a090b19d3c15364914917d9893be292225e8b8a016f2833a5b8354f079475a73"
     end
-  end
-
-  # Fixes input module bug on El Capitan
-  # see https://bugzilla.gnome.org/show_bug.cgi?id=753992
-  patch do
-    url "https://github.com/GNOME/gtk/commit/571704824f78de9d8b262793397a4e4ea6cedf7d.patch"
-    sha256 "99d9d7bb46e129e264bc324c9b736050bd9be3a04da8e143d05785a0bafdb3c1"
   end
 
   def install

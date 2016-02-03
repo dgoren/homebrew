@@ -1,14 +1,14 @@
 class H2o < Formula
   desc "HTTP server with support for HTTP/1.x and HTTP/2"
   homepage "https://github.com/h2o/h2o/"
-  url "https://github.com/h2o/h2o/archive/v1.5.3.tar.gz"
-  sha256 "93bbfac7f781b82a276a69b2bc331782c4020f8c877ec6c8ca6a4f9addb42922"
+  url "https://github.com/h2o/h2o/archive/v1.6.3.tar.gz"
+  sha256 "49d7cdb4e33b02b63eef1f1625c089ace89b6b839764cd067e510ff3a472c6c6"
   head "https://github.com/h2o/h2o.git"
 
   bottle do
-    sha256 "eb59eb87c1f93d1bde619f46a59ea97ea895307cf8d5a2c5461edb28b087eb26" => :el_capitan
-    sha256 "44602d342fbd5773f6a68a48841d8fbc3e2ff817e3a408df405778255ee13fb0" => :yosemite
-    sha256 "b2d8c9743fe23eccc2e70ad0a8769ffe1a00814544c0ab0ce1ee1eaae7b7ebc8" => :mavericks
+    sha256 "15c3b0ec512a56f8f622814ef86270ef0fb732f186353391402a312ad98b97d0" => :el_capitan
+    sha256 "092c564f8f22bb9e18979ee9b048e11d7132433eeeb381ea8601e6b235e7f59d" => :yosemite
+    sha256 "656d970b1016018aeb3985e3dde13c0497a3a4e194d5891b27a94430c35fbf16" => :mavericks
   end
 
   option "with-libuv", "Build the H2O library in addition to the executable"
@@ -91,7 +91,7 @@ class H2o < Formula
     sleep 2
 
     begin
-      assert_match /Welcome to H2O/, shell_output("curl localhost:8080")
+      assert_match "Welcome to H2O", shell_output("curl localhost:8080")
     ensure
       Process.kill("SIGINT", pid)
       Process.wait(pid)

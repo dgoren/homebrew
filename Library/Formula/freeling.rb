@@ -4,19 +4,20 @@ class Freeling < Formula
   url "http://devel.cpl.upc.edu/freeling/downloads/32"
   version "3.1"
   sha256 "e98471ceb3f58afbe70369584d8d316323d13fcc51d09b2fd7f431a3220982ba"
-  revision 5
+  revision 7
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "b324f4b00c5e9a79c2fcb42b2647e4ac1031f711c4b60a59c81db8ee1ff1ff61" => :el_capitan
-    sha256 "38072877b598c0a68da4927f7cc42fcef26d848577f91e19b1f7948725982187" => :yosemite
-    sha256 "ef9eb1970588a5a1715f67e8fd96456db9ce7a9e7c28a7a19dba63208c0bde3c" => :mavericks
+    sha256 "29ba46b151743d03cc88faf1fe3387b54bedef5b0fd0d6c48716b149d114b84c" => :el_capitan
+    sha256 "9df578994e9f84c9bf74b87991a79ba6fbaf11994fc2d01ceee1d869e7de9417" => :yosemite
+    sha256 "974af8b21553bb39459b4dcf166aabcd28f05956b69a82ef0d44db5aad8ae82b" => :mavericks
   end
 
   depends_on "libtool" => :build
   depends_on "boost" => "with-icu4c"
   depends_on "icu4c"
+
+  conflicts_with "hunspell", :because => "both install 'analyze' binary"
 
   def install
     icu4c = Formula["icu4c"]
@@ -40,6 +41,6 @@ class Freeling < Formula
       Hello hello NN 1
       world world NN 1
     EOS
-    assert_equal expected, pipe_output("#{bin}/analyze -f #{share}/freeling/config/en.cfg", "Hello world").chomp
+    assert_equal expected, pipe_output("#{bin}/analyze -f #{pkgshare}/config/en.cfg", "Hello world").chomp
   end
 end

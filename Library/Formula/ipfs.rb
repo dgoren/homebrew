@@ -4,23 +4,19 @@ class Ipfs < Formula
   desc "IPFS is The Permanent Web - A new peer-to-peer hypermedia protocol"
   homepage "https://ipfs.io/"
   url "https://github.com/ipfs/go-ipfs.git",
-    :tag => "v0.3.9",
-    :revision => "43622bd5eed1f62d53d364dc771bbb500939d9e6"
+    :tag => "v0.3.11",
+    :revision => "7070b4d878baad57dcc8da80080dd293aa46cabd"
   head "https://github.com/ipfs/go-ipfs.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "9d3d463079b2d32ab5c70c8a314e2aadd3cbe8c72071eb12fbe47f6302b1df57" => :el_capitan
-    sha256 "d29aa282f4beda50735bf40e42ce715e5776fd904bd908001ee93999fa3b3c11" => :yosemite
-    sha256 "133a939cf59e7114e2be8934bda3601a4697d24abb1b2e6cc864afa8cb7579f3" => :mavericks
+    sha256 "3172c0c1a493bea027b89de415cd3341e85f15a0f049756df81870a347771150" => :el_capitan
+    sha256 "5efaddf23bc86c918f50c3f3d5a345e157813dd326331afca13b8b9be8ca8dfd" => :yosemite
+    sha256 "d08f479fdce8b136181d8c26e50fdd0d9fba759c2c464efc610ffea0353fc81a" => :mavericks
   end
 
   depends_on "go" => :build
-
-  go_resource "github.com/tools/godep" do
-    url "https://github.com/tools/godep.git",
-      :revision => "5598a9815350896a2cdf9f4f1d0a3003ab9677fb"
-  end
+  depends_on "godep" => :build
 
   go_resource "github.com/kr/fs" do
     url "https://github.com/kr/fs.git",
@@ -38,10 +34,6 @@ class Ipfs < Formula
     mkdir_p buildpath/"src/github.com/ipfs/"
     ln_sf buildpath, buildpath/"src/github.com/ipfs/go-ipfs"
     Language::Go.stage_deps resources, buildpath/"src"
-
-    cd "src/github.com/tools/godep" do
-      system "go", "install"
-    end
 
     cd "cmd/ipfs" do
       system "make", "build"
